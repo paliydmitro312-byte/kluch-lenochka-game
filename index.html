@@ -225,7 +225,13 @@ function renderR2(){
 }
 function answerR2(n){
  const x=r2[i],box=document.getElementById('r2answers');
- [...box.children].forEach((b,k)=>{b.disabled=true;if(k===x.c)b.classList.add('good');if(k===n&&n!==x.c)b.classList.add('bad')});
+ [...box.children].forEach((b,k)=>{
+  if(k===x.c && n===x.c) b.classList.add('good');
+  if(k===n && n!==x.c){
+    b.classList.add('bad');
+    b.disabled=true;
+  }
+});
  if(n===x.c){document.getElementById('r2feedback').textContent='❤️ ТОЧНО! Ты начинаешь понимать язык Леночки.';document.getElementById('r2next').style.display='block'}
  else document.getElementById('r2feedback').textContent='❌ Леночка смотрит на тебя с разочарованием. Попробуй ещё раз.';
 }
