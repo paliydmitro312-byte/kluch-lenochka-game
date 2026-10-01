@@ -1,190 +1,197 @@
-```html
 <!doctype html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
   <title>Ключ, пора прощать Леночку</title>
+
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      font-family:Arial,sans-serif;
-      background:linear-gradient(145deg,#160b2d,#30104b 55%,#0c1025);
-      color:#fff;
-      min-height:100vh
+    * {
+      box-sizing: border-box;
     }
 
-    .app{
-      max-width:520px;
-      margin:auto;
-      padding:18px 14px 28px
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(145deg, #160b2d, #30104b 55%, #0c1025);
+      color: #fff;
+      min-height: 100vh;
     }
 
-    .screen{display:none}
-    .screen.active{display:block}
-
-    .card{
-      background:rgba(255,255,255,.09);
-      border:1px solid rgba(255,255,255,.15);
-      border-radius:24px;
-      padding:20px;
-      box-shadow:0 10px 35px rgba(0,0,0,.25)
+    .app {
+      max-width: 520px;
+      margin: auto;
+      padding: 18px 14px 28px;
     }
 
-    h1{
-      font-size:30px;
-      line-height:1.08;
-      margin:8px 0 14px
+    .screen {
+      display: none;
     }
 
-    h2{
-      font-size:25px;
-      margin:6px 0 12px
+    .screen.active {
+      display: block;
     }
 
-    h3{
-      font-size:21px;
-      margin:8px 0
+    .card {
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: 0 10px 35px rgba(0,0,0,.25);
     }
 
-    p{
-      font-size:17px;
-      line-height:1.45;
-      margin:10px 0
+    h1 {
+      font-size: 30px;
+      line-height: 1.08;
+      margin: 8px 0 14px;
     }
 
-    .emoji{
-      font-size:58px;
-      text-align:center;
-      margin:8px 0
+    h2 {
+      font-size: 25px;
+      margin: 6px 0 12px;
     }
 
-    .round{
-      font-weight:800;
-      letter-spacing:.5px;
-      color:#ffd54a
+    h3 {
+      font-size: 21px;
+      margin: 8px 0;
     }
 
-    .btn{
-      width:100%;
-      border:0;
-      border-radius:16px;
-      padding:15px 12px;
-      margin-top:10px;
-      font-size:16px;
-      font-weight:800;
-      background:#fff;
-      color:#241238;
-      cursor:pointer
+    p {
+      font-size: 17px;
+      line-height: 1.45;
+      margin: 10px 0;
     }
 
-    .btn:active{
-      transform:scale(.98)
+    .emoji {
+      font-size: 58px;
+      text-align: center;
+      margin: 8px 0;
     }
 
-    .answer{
-      background:rgba(255,255,255,.12);
-      color:#fff;
-      text-align:left;
-      border:1px solid rgba(255,255,255,.14)
+    .round {
+      font-weight: 800;
+      letter-spacing: .5px;
+      color: #ffd54a;
     }
 
-    .good{
-      background:#35c878!important;
-      color:#071b11!important
+    .btn {
+      width: 100%;
+      border: 0;
+      border-radius: 16px;
+      padding: 15px 12px;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      background: #fff;
+      color: #241238;
+      cursor: pointer;
     }
 
-    .bad{
-      background:#e85b65!important;
-      color:#fff!important
+    .btn:active {
+      transform: scale(.98);
     }
 
-    .progress{
-      height:10px;
-      background:rgba(255,255,255,.12);
-      border-radius:20px;
-      overflow:hidden;
-      margin:14px 0
+    .answer {
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      text-align: left;
+      border: 1px solid rgba(255,255,255,.14);
     }
 
-    .bar{
-      height:100%;
-      width:0;
-      background:#ff4fd8;
-      transition:.25s
+    .answer.good {
+      background: #35c878 !important;
+      color: #071b11 !important;
     }
 
-    .score{
-      text-align:center;
-      font-size:19px;
-      font-weight:800;
-      margin:8px 0
+    .answer.bad {
+      background: #e85b65 !important;
+      color: #fff !important;
     }
 
-    .feedback{
-      min-height:48px;
-      text-align:center;
-      font-weight:700;
-      padding:8px
+    .progress {
+      height: 10px;
+      background: rgba(255,255,255,.12);
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 14px 0;
     }
 
-    .game{
-      position:relative;
-      height:410px;
-      background:linear-gradient(#10172d,#182d47);
-      border-radius:22px;
-      overflow:hidden;
-      border:2px solid rgba(255,255,255,.15)
+    .bar {
+      height: 100%;
+      width: 0;
+      background: #ff4fd8;
+      transition: .25s;
     }
 
-    .player{
-      position:absolute;
-      bottom:16px;
-      left:50%;
-      font-size:48px;
-      transform:translateX(-50%);
-      transition:left .08s
+    .feedback {
+      min-height: 48px;
+      text-align: center;
+      font-weight: 700;
+      padding: 8px;
     }
 
-    .fall{
-      position:absolute;
-      top:-55px;
-      font-size:38px;
-      transition:none
+    .center {
+      text-align: center;
     }
 
-    .controls{
-      display:flex;
-      gap:10px;
-      margin-top:10px
+    .final {
+      font-size: 22px;
+      line-height: 1.4;
     }
 
-    .controls .btn{
-      margin:0;
-      font-size:25px
+    .game {
+      position: relative;
+      height: 410px;
+      background: linear-gradient(#10172d,#182d47);
+      border-radius: 22px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,.15);
     }
 
-    .center{
-      text-align:center
+    .player {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      font-size: 48px;
+      transform: translateX(-50%);
+      transition: left .08s;
     }
 
-    .final{
-      font-size:22px;
-      line-height:1.4
+    .fall {
+      position: absolute;
+      top: -55px;
+      font-size: 38px;
     }
 
-    .shake{
-      animation:shake .3s
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
     }
 
-    @keyframes shake{
-      25%{transform:translateX(-5px)}
-      50%{transform:translateX(5px)}
-      75%{transform:translateX(-4px)}
+    .controls .btn {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .score {
+      text-align: center;
+      font-size: 19px;
+      font-weight: 800;
+      margin: 8px 0;
+    }
+
+    .shake {
+      animation: shake .3s;
+    }
+
+    @keyframes shake {
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-4px); }
     }
   </style>
 </head>
@@ -193,24 +200,34 @@
 
 <div class="app">
 
-  <!-- СТАРТ -->
+  <!-- START -->
 
   <section id="start" class="screen active">
     <div class="card center">
 
       <div class="emoji">🎮</div>
 
-      <div class="round">СПЕЦИАЛЬНОЕ ИСПЫТАНИЕ</div>
+      <div class="round">
+        СПЕЦИАЛЬНОЕ ИСПЫТАНИЕ
+      </div>
 
-      <h1>КЛЮЧ, ПОРА ПРОЩАТЬ ЛЕНОЧКУ</h1>
+      <h1>
+        КЛЮЧ, ПОРА ПРОЩАТЬ ЛЕНОЧКУ
+      </h1>
 
-      <p>Три раунда. Несколько ловушек. И один главный вопрос:</p>
+      <p>
+        Три раунда. Несколько ловушек. И один главный вопрос:
+      </p>
 
-      <h2>❤️ ПРОСТИШЬ ЛИ ТЫ ЛЕНОЧКУ?</h2>
+      <h2>
+        ❤️ ПРОСТИШЬ ЛИ ТЫ ЛЕНОЧКУ?
+      </h2>
 
-      <p>Пройдёшь все испытания — узнаешь.</p>
+      <p>
+        Пройдёшь все испытания — узнаешь.
+      </p>
 
-      <button class="btn" onclick="show('r1intro')">
+      <button class="btn" onclick="showScreen('r1intro')">
         🔥 НАЧАТЬ ИГРУ
       </button>
 
@@ -218,16 +235,20 @@
   </section>
 
 
-  <!-- РАУНД 1 ВВОДНЫЙ -->
+  <!-- ROUND 1 INTRO -->
 
   <section id="r1intro" class="screen">
     <div class="card">
 
       <div class="emoji">🧠</div>
 
-      <div class="round">РАУНД 1</div>
+      <div class="round">
+        РАУНД 1
+      </div>
 
-      <h2>«МЕМНЫЕ КОМБИНАЦИИ»</h2>
+      <h2>
+        «МЕМНЫЕ КОМБИНАЦИИ»
+      </h2>
 
       <p>
         Ключ, Леночка подготовила для тебя несколько жизненно важных ситуаций.
@@ -241,7 +262,7 @@
         Внимательно выбирай ответы. От этого зависит, получит ли Леночка прощение. 😈
       </p>
 
-      <button class="btn" onclick="startR1()">
+      <button class="btn" onclick="startRound1()">
         👉 НАЧАТЬ РАУНД
       </button>
 
@@ -249,12 +270,14 @@
   </section>
 
 
-  <!-- РАУНД 1 -->
+  <!-- ROUND 1 -->
 
   <section id="r1" class="screen">
     <div class="card">
 
-      <div class="round">🟣 РАУНД 1</div>
+      <div class="round">
+        🟣 РАУНД 1
+      </div>
 
       <div class="progress">
         <div id="r1bar" class="bar"></div>
@@ -270,7 +293,7 @@
         id="r1next"
         class="btn"
         style="display:none"
-        onclick="nextR1()"
+        onclick="nextRound1()"
       >
         ➡️ ДАЛЬШЕ
       </button>
@@ -279,22 +302,30 @@
   </section>
 
 
-  <!-- КОНЕЦ РАУНДА 1 -->
+  <!-- ROUND 1 END -->
 
   <section id="r1end" class="screen">
     <div class="card center">
 
       <div class="emoji">🏁</div>
 
-      <h2>РАУНД 1 ПРОЙДЕН!</h2>
+      <h2>
+        РАУНД 1 ПРОЙДЕН!
+      </h2>
 
-      <p>Ключ пока не послал Леночку куда подальше.</p>
+      <p>
+        Ключ пока не послал Леночку куда подальше.
+      </p>
 
-      <p>Это уже огромный прогресс. 😂</p>
+      <p>
+        Это уже огромный прогресс. 😂
+      </p>
 
-      <p>Но теперь начнётся самое интересное…</p>
+      <p>
+        Но теперь начнётся самое интересное…
+      </p>
 
-      <button class="btn" onclick="show('r2intro')">
+      <button class="btn" onclick="showScreen('r2intro')">
         👉 РАУНД 2
       </button>
 
@@ -302,16 +333,20 @@
   </section>
 
 
-  <!-- РАУНД 2 ВВОДНЫЙ -->
+  <!-- ROUND 2 INTRO -->
 
   <section id="r2intro" class="screen">
     <div class="card">
 
       <div class="emoji">🧩</div>
 
-      <div class="round">РАУНД 2</div>
+      <div class="round">
+        РАУНД 2
+      </div>
 
-      <h2>«РАЗГАДАЙ ЛЕНОЧКУ»</h2>
+      <h2>
+        «РАЗГАДАЙ ЛЕНОЧКУ»
+      </h2>
 
       <p>
         Теперь Леночка будет разговаривать исключительно эмодзи.
@@ -325,7 +360,7 @@
         Угадаешь — получишь очко. Не угадаешь — Леночка будет очень разочарована. 🥲
       </p>
 
-      <button class="btn" onclick="startR2()">
+      <button class="btn" onclick="startRound2()">
         🧩 НАЧАТЬ
       </button>
 
@@ -333,12 +368,14 @@
   </section>
 
 
-  <!-- РАУНД 2 -->
+  <!-- ROUND 2 -->
 
   <section id="r2" class="screen">
     <div class="card">
 
-      <div class="round">🔵 РАУНД 2</div>
+      <div class="round">
+        🔵 РАУНД 2
+      </div>
 
       <div class="progress">
         <div id="r2bar" class="bar"></div>
@@ -356,7 +393,7 @@
         id="r2next"
         class="btn"
         style="display:none"
-        onclick="nextR2()"
+        onclick="nextRound2()"
       >
         ➡️ ДАЛЬШЕ
       </button>
@@ -365,24 +402,30 @@
   </section>
 
 
-  <!-- КОНЕЦ РАУНДА 2 -->
+  <!-- ROUND 2 END -->
 
   <section id="r2end" class="screen">
     <div class="card center">
 
       <div class="emoji">🧠</div>
 
-      <h2>РАУНД 2 ПРОЙДЕН!</h2>
+      <h2>
+        РАУНД 2 ПРОЙДЕН!
+      </h2>
 
-      <p>Ты уже научился понимать язык Леночки.</p>
+      <p>
+        Ты уже научился понимать язык Леночки.
+      </p>
 
-      <p>Осталось последнее испытание.</p>
+      <p>
+        Осталось последнее испытание.
+      </p>
 
       <p>
         И вот здесь тебе придётся <b>побегать.</b> 😈
       </p>
 
-      <button class="btn" onclick="startR3()">
+      <button class="btn" onclick="showScreen('r3intro')">
         🔥 РАУНД 3
       </button>
 
@@ -390,16 +433,20 @@
   </section>
 
 
-  <!-- РАУНД 3 ВВОДНЫЙ -->
+  <!-- ROUND 3 INTRO -->
 
   <section id="r3intro" class="screen">
     <div class="card">
 
       <div class="emoji">💚</div>
 
-      <div class="round">РАУНД 3 — ФИНАЛ</div>
+      <div class="round">
+        РАУНД 3 — ФИНАЛ
+      </div>
 
-      <h2>«ПОЙМАЙ КОМПЛИМЕНТЫ»</h2>
+      <h2>
+        «ПОЙМАЙ КОМПЛИМЕНТЫ»
+      </h2>
 
       <p>
         Леночка решила доказать Ключу, что она умеет говорить не только гадости.
@@ -429,7 +476,7 @@
   </section>
 
 
-  <!-- ИГРА -->
+  <!-- GAME -->
 
   <section id="game" class="screen">
     <div class="card">
@@ -444,16 +491,20 @@
       </div>
 
       <div id="field" class="game">
-        <div id="player" class="player">👦🏻</div>
+
+        <div id="player" class="player">
+          👦🏻
+        </div>
+
       </div>
 
       <div class="controls">
 
-        <button class="btn" onclick="move(-1)">
+        <button class="btn" onclick="movePlayer(-1)">
           ⬅️
         </button>
 
-        <button class="btn" onclick="move(1)">
+        <button class="btn" onclick="movePlayer(1)">
           ➡️
         </button>
 
@@ -467,14 +518,16 @@
   </section>
 
 
-  <!-- ФИНИШ -->
+  <!-- FINISH -->
 
   <section id="finish" class="screen">
     <div class="card center">
 
       <div class="emoji">🎉</div>
 
-      <h2>10 / 10!</h2>
+      <h2>
+        10 / 10!
+      </h2>
 
       <p class="final">
         <b>ТЫ ПОЙМАЛ ВСЕ КОМПЛИМЕНТЫ!</b>
@@ -488,7 +541,7 @@
         ❤️ Возможно, теперь ты готов её простить.
       </p>
 
-      <button class="btn" onclick="show('forgive')">
+      <button class="btn" onclick="showScreen('forgive')">
         ❤️ ПРОСТИТЬ ЛЕНОЧКУ
       </button>
 
@@ -496,14 +549,16 @@
   </section>
 
 
-  <!-- ПРОЩЕНИЕ -->
+  <!-- FORGIVE -->
 
   <section id="forgive" class="screen">
     <div class="card center">
 
       <div class="emoji">🕊️</div>
 
-      <h2>МИР ЗАКЛЮЧЁН!</h2>
+      <h2>
+        МИР ЗАКЛЮЧЁН!
+      </h2>
 
       <p>
         Ключ и Леночка официально больше не воюют.
@@ -517,17 +572,19 @@
         🥃 Японское пойло — за крепкую дружбу.
       </p>
 
-      <h2>❤️ Леночка прощена.</h2>
+      <h2>
+        ❤️ Леночка прощена.
+      </h2>
 
       <p>
         🏆 <b>ИГРА ПРОЙДЕНА!</b>
       </p>
 
-      <button class="btn" onclick="share()">
+      <button class="btn" onclick="shareGame()">
         📤 ОТПРАВИТЬ ЛЕНОЧКЕ
       </button>
 
-      <button class="btn" onclick="location.reload()">
+      <button class="btn" onclick="restartGame()">
         🔄 ПРОЙТИ ЕЩЁ РАЗ
       </button>
 
@@ -539,328 +596,403 @@
 
 <script>
 
-/* TELEGRAM */
+/* =========================
+   TELEGRAM
+========================= */
 
-const tg = window.Telegram?.WebApp;
+const tg = window.Telegram && window.Telegram.WebApp;
 
-if(tg){
+if (tg) {
   tg.ready();
   tg.expand();
 }
 
 
-/* РАУНД 1 */
+/* =========================
+   НАВИГАЦИЯ
+========================= */
 
-const r1 = [
+function showScreen(id) {
+
+  const screens = document.querySelectorAll('.screen');
+
+  screens.forEach(function(screen) {
+    screen.classList.remove('active');
+  });
+
+  const target = document.getElementById(id);
+
+  if (target) {
+    target.classList.add('active');
+  }
+
+  window.scrollTo(0, 0);
+}
+
+
+/* =========================
+   РАУНД 1
+========================= */
+
+const round1Questions = [
 
   {
-    q:"😂 Леночка опять что-то написала. Что делает Ключ?",
-    a:[
+    question: "😂 Леночка опять что-то написала. Что делает Ключ?",
+    answers: [
       "🤬 «Завали ебучку»",
       "🚫 Добавляет Леночку в ЧС",
       "😐 Пишет «ок» и исчезает",
       "❤️ Даёт ей шанс объясниться"
     ],
-    c:3,
-    f:"☑️ Вот это мудро. Леночка пока остаётся на свободе."
+    correct: 3,
+    message: "☑️ Вот это мудро. Леночка пока остаётся на свободе."
   },
 
   {
-    q:"😂 Леночка говорит: «Я всё объясню». Что отвечает Ключ?",
-    a:[
+    question: "😂 Леночка говорит: «Я всё объясню». Что отвечает Ключ?",
+    answers: [
       "💀 «Мне уже всё равно»",
       "🗑️ «Иди объясняй это мусорному ведру»",
       "👂 «Ладно, говори»",
       "🤡 «АХАХАХА»"
     ],
-    c:2,
-    f:"☑️ Правильно. Иногда человека всё-таки стоит выслушать."
+    correct: 2,
+    message: "☑️ Правильно. Иногда человека всё-таки стоит выслушать."
   },
 
   {
-    q:"😂 Леночка решила извиниться. Что делает Ключ?",
-    a:[
+    question: "😂 Леночка решила извиниться. Что делает Ключ?",
+    answers: [
       "🧱 Делает вид, что не услышал",
       "😎 «Извинения приняты»",
       "💩 Отправляет какашку",
       "🔥 Начинает новый конфликт"
     ],
-    c:1,
-    f:"☑️ Вот это уже дипломатия."
+    correct: 1,
+    message: "☑️ Вот это уже дипломатия."
   }
 
 ];
 
 
-let i=0;
+let round1Index = 0;
 
 
-/* ОБЩАЯ НАВИГАЦИЯ */
+function startRound1() {
 
-function show(id){
+  round1Index = 0;
 
-  document
-    .querySelectorAll('.screen')
-    .forEach(x=>x.classList.remove('active'));
+  showScreen('r1');
 
-  document
-    .getElementById(id)
-    .classList.add('active');
-
-  window.scrollTo(0,0);
+  renderRound1();
 }
 
 
-/* РАУНД 1 */
+function renderRound1() {
 
-function startR1(){
+  const question = round1Questions[round1Index];
 
-  i=0;
+  document.getElementById('r1q').textContent =
+    question.question;
 
-  show('r1');
+  document.getElementById('r1bar').style.width =
+    ((round1Index / round1Questions.length) * 100) + '%';
 
-  renderR1();
-}
+  const answersContainer =
+    document.getElementById('r1answers');
 
+  answersContainer.innerHTML = '';
 
-function renderR1(){
+  question.answers.forEach(function(answer, index) {
 
-  const x=r1[i];
+    const button = document.createElement('button');
 
-  document.getElementById('r1q').textContent=x.q;
+    button.type = 'button';
 
-  document.getElementById('r1bar').style.width=
-    ((i/r1.length)*100)+'%';
+    button.className = 'btn answer';
 
-  const box=document.getElementById('r1answers');
+    button.textContent = answer;
 
-  box.innerHTML='';
+    button.addEventListener('click', function() {
+      answerRound1(index);
+    });
 
-  x.a.forEach((v,n)=>{
-
-    const b=document.createElement('button');
-
-    b.className='btn answer';
-
-    b.textContent=v;
-
-    b.onclick=()=>answerR1(n);
-
-    box.appendChild(b);
+    answersContainer.appendChild(button);
 
   });
 
-  document.getElementById('r1feedback').textContent='';
+  document.getElementById('r1feedback').textContent = '';
 
-  document.getElementById('r1next').style.display='none';
+  document.getElementById('r1next').style.display = 'none';
 }
 
 
-/*
-  ВАЖНО:
-  НЕПРАВИЛЬНЫЕ ОТВЕТЫ НЕ БЛОКИРУЮТСЯ.
-  На них можно нажимать снова.
-*/
+function answerRound1(selectedIndex) {
 
-function answerR1(n){
+  const question = round1Questions[round1Index];
 
-  const x=r1[i];
+  const buttons =
+    document.querySelectorAll('#r1answers .answer');
 
-  const box=document.getElementById('r1answers');
+  /*
+    СНАЧАЛА УБИРАЕМ ПРЕДЫДУЩИЙ КРАСНЫЙ ЦВЕТ.
+    НИ ОДНА КНОПКА НЕ DISABLED.
+  */
 
-  [...box.children].forEach(b=>{
-    b.classList.remove('bad');
+  buttons.forEach(function(button) {
+    button.classList.remove('bad');
   });
 
-  if(n===x.c){
 
-    box.children[n].classList.add('good');
+  /*
+    НЕПРАВИЛЬНЫЙ ОТВЕТ
+  */
 
-    document.getElementById('r1feedback').textContent=x.f;
+  if (selectedIndex !== question.correct) {
 
-    document.getElementById('r1next').style.display='block';
+    buttons[selectedIndex].classList.add('bad');
 
-  }else{
-
-    box.children[n].classList.add('bad');
-
-    document.getElementById('r1feedback').textContent=
+    document.getElementById('r1feedback').textContent =
       '❌ Не-а. Попробуй ещё раз — Леночка всё ещё надеется на прощение. 😈';
 
+    return;
   }
+
+
+  /*
+    ПРАВИЛЬНЫЙ ОТВЕТ
+  */
+
+  buttons[selectedIndex].classList.remove('bad');
+
+  buttons[selectedIndex].classList.add('good');
+
+  document.getElementById('r1feedback').textContent =
+    question.message;
+
+  document.getElementById('r1next').style.display =
+    'block';
+
 }
 
 
-function nextR1(){
+function nextRound1() {
 
-  i++;
+  round1Index++;
 
-  if(i>=r1.length){
+  if (round1Index >= round1Questions.length) {
 
-    show('r1end');
+    showScreen('r1end');
 
-  }else{
-
-    renderR1();
-
+    return;
   }
+
+  renderRound1();
 }
 
 
-/* РАУНД 2 */
+/* =========================
+   РАУНД 2
+========================= */
 
-const r2 = [
+const round2Questions = [
 
   {
-    e:"🤐 + 🍑",
-    q:"Что означает это послание?",
-    a:[
+    emoji: "🤐 + 🍑",
+
+    question: "Что означает это послание?",
+
+    answers: [
       "🤬 «Завали ебучку»",
       "❤️ «Леночка просит прощения у Ключа»",
       "🚫 «Я передумала мириться»",
       "👑 «Ключ официально победил»"
     ],
-    c:1
+
+    correct: 1
   },
 
   {
-    e:"👄 + 🍑",
-    q:"Что Леночка хочет сказать?",
-    a:[
+    emoji: "👄 + 🍑",
+
+    question: "Что Леночка хочет сказать?",
+
+    answers: [
       "🤬 «Соси жопу»",
       "❤️ «Леночка признаёт, что была неправа»",
       "🤝 «Предлагаю перемирие»",
       "😈 «Ключ, ты меня раскусил»"
     ],
-    c:1
+
+    correct: 1
   },
 
   {
-    e:"👩🏻 + 🚿❌ + 🗑️",
-    q:"Что означает эта загадочная комбинация?",
-    a:[
+    emoji: "👩🏻 + 🚿❌ + 🗑️",
+
+    question: "Что означает эта загадочная комбинация?",
+
+    answers: [
       "🤡 «Ты похожа на бомжа»",
       "❤️ «Леночка искренне извиняется»",
       "🏃 «Леночка снова попала в неловкую ситуацию»",
       "💀 «Ключ, забудь всё, что было»"
     ],
-    c:1
+
+    correct: 1
   }
 
 ];
 
 
-function startR2(){
+let round2Index = 0;
 
-  i=0;
 
-  show('r2');
+function startRound2() {
 
-  renderR2();
+  round2Index = 0;
+
+  showScreen('r2');
+
+  renderRound2();
 }
 
 
-function renderR2(){
+function renderRound2() {
 
-  const x=r2[i];
+  const question = round2Questions[round2Index];
 
-  document.getElementById('r2emoji').textContent=x.e;
+  document.getElementById('r2emoji').textContent =
+    question.emoji;
 
-  document.getElementById('r2q').textContent=x.q;
+  document.getElementById('r2q').textContent =
+    question.question;
 
-  document.getElementById('r2bar').style.width=
-    ((i/r2.length)*100)+'%';
+  document.getElementById('r2bar').style.width =
+    ((round2Index / round2Questions.length) * 100) + '%';
 
-  const box=document.getElementById('r2answers');
+  const answersContainer =
+    document.getElementById('r2answers');
 
-  box.innerHTML='';
+  answersContainer.innerHTML = '';
 
-  x.a.forEach((v,n)=>{
+  question.answers.forEach(function(answer, index) {
 
-    const b=document.createElement('button');
+    const button = document.createElement('button');
 
-    b.className='btn answer';
+    button.type = 'button';
 
-    b.textContent=v;
+    button.className = 'btn answer';
 
-    b.onclick=()=>answerR2(n);
+    button.textContent = answer;
 
-    box.appendChild(b);
+    button.addEventListener('click', function() {
+      answerRound2(index);
+    });
+
+    answersContainer.appendChild(button);
 
   });
 
-  document.getElementById('r2feedback').textContent='';
+  document.getElementById('r2feedback').textContent = '';
 
-  document.getElementById('r2next').style.display='none';
+  document.getElementById('r2next').style.display = 'none';
 }
 
 
-function answerR2(n){
+/*
+  ВОТ ЗДЕСЬ ГЛАВНОЕ ИСПРАВЛЕНИЕ.
 
-  const x=r2[i];
+  НИ ОДНА НЕПРАВИЛЬНАЯ КНОПКА
+  НЕ БЛОКИРУЕТСЯ.
 
-  const box=document.getElementById('r2answers');
+  Можно нажимать:
+  неправильная → неправильная → неправильная → правильная.
+*/
 
-  [...box.children].forEach(b=>{
-    b.classList.remove('bad');
+function answerRound2(selectedIndex) {
+
+  const question = round2Questions[round2Index];
+
+  const buttons =
+    document.querySelectorAll('#r2answers .answer');
+
+
+  /*
+    Убираем предыдущий красный цвет.
+  */
+
+  buttons.forEach(function(button) {
+    button.classList.remove('bad');
   });
 
-  if(n===x.c){
 
-    box.children[n].classList.add('good');
+  /*
+    ЕСЛИ ОТВЕТ НЕПРАВИЛЬНЫЙ
+  */
 
-    document.getElementById('r2feedback').textContent=
-      '❤️ ТОЧНО! Ты начинаешь понимать язык Леночки.';
+  if (selectedIndex !== question.correct) {
 
-    document.getElementById('r2next').style.display='block';
+    buttons[selectedIndex].classList.add('bad');
 
-  }else{
-
-    box.children[n].classList.add('bad');
-
-    document.getElementById('r2feedback').textContent=
+    document.getElementById('r2feedback').textContent =
       '❌ Леночка смотрит на тебя с разочарованием. Попробуй ещё раз.';
 
+    return;
   }
+
+
+  /*
+    ЕСЛИ ОТВЕТ ПРАВИЛЬНЫЙ
+  */
+
+  buttons[selectedIndex].classList.add('good');
+
+  document.getElementById('r2feedback').textContent =
+    '❤️ ТОЧНО! Ты начинаешь понимать язык Леночки.';
+
+  document.getElementById('r2next').style.display =
+    'block';
+
 }
 
 
-function nextR2(){
+function nextRound2() {
 
-  i++;
+  round2Index++;
 
-  if(i>=r2.length){
+  if (round2Index >= round2Questions.length) {
 
-    show('r2end');
+    showScreen('r2end');
 
-  }else{
-
-    renderR2();
-
+    return;
   }
+
+  renderRound2();
 }
 
 
-/* РАУНД 3 */
+/* =========================
+   РАУНД 3
+========================= */
 
-const good=[
+const goodItems = [
 
-  ["❤️","Твои шутки смешные"],
-  ["🔥","Большой MMR"],
-  ["🍕","Пицца с 🍊 — вкусно"],
-  ["💅","Голубой маник — топ"],
-  ["😎","Упрямство — плюс"],
-  ["🐐","Козерог не козёл"],
-  ["💻","Крутой IT-ишник"],
-  ["😏","Грубость — изюминка"],
-  ["🌈","Геи сила"],
-  ["🧔🏻","Красивая борода"]
+  ["❤️", "Твои шутки смешные"],
+  ["🔥", "Большой MMR"],
+  ["🍕", "Пицца с 🍊 — вкусно"],
+  ["💅", "Голубой маник — топ"],
+  ["😎", "Упрямство — плюс"],
+  ["🐐", "Козерог не козёл"],
+  ["💻", "Крутой IT-ишник"],
+  ["😏", "Грубость — изюминка"],
+  ["🌈", "Геи сила"],
+  ["🧔🏻", "Красивая борода"]
 
 ];
 
 
-const bad=[
-
+const badItems = [
   "💩",
   "🤡",
   "💀",
@@ -873,207 +1005,277 @@ const bad=[
   "🥴",
   "🤢",
   "🪳"
-
 ];
 
 
-let score=0;
+let score = 0;
 
-let px=50;
+let playerPosition = 50;
 
-let gameTimer=null;
-
-let spawnTimer=null;
+let spawnTimer = null;
 
 
-function startR3(){
+function startGame() {
 
-  show('r3intro');
+  showScreen('game');
 
-}
+  score = 0;
 
+  playerPosition = 50;
 
-function startGame(){
+  document.getElementById('gameScore').textContent =
+    '0';
 
-  show('game');
+  document.getElementById('gamebar').style.width =
+    '0%';
 
-  score=0;
-
-  px=50;
-
-  document.getElementById('gameScore').textContent=score;
-
-  document.getElementById('gamebar').style.width='0%';
-
-  document.getElementById('gameMsg').textContent=
+  document.getElementById('gameMsg').textContent =
     'Лови хорошие эмодзи! 💖';
 
-  document.getElementById('player').style.left=
-    px+'%';
-
-  clearInterval(gameTimer);
+  document.getElementById('player').style.left =
+    '50%';
 
   clearInterval(spawnTimer);
 
-  spawnTimer=setInterval(spawn,650);
-
-}
-
-
-function move(dir){
-
-  px=Math.max(
-    7,
-    Math.min(93,px+dir*9)
+  spawnTimer = setInterval(
+    spawnItem,
+    650
   );
-
-  document.getElementById('player').style.left=
-    px+'%';
-
 }
 
 
-document.addEventListener('keydown',e=>{
+function movePlayer(direction) {
 
-  if(e.key==='ArrowLeft'){
-    move(-1);
+  playerPosition += direction * 9;
+
+  playerPosition =
+    Math.max(
+      7,
+      Math.min(93, playerPosition)
+    );
+
+  document.getElementById('player').style.left =
+    playerPosition + '%';
+}
+
+
+document.addEventListener('keydown', function(event) {
+
+  if (event.key === 'ArrowLeft') {
+    movePlayer(-1);
   }
 
-  if(e.key==='ArrowRight'){
-    move(1);
+  if (event.key === 'ArrowRight') {
+    movePlayer(1);
   }
 
 });
 
 
-function spawn(){
+function spawnItem() {
 
-  const field=document.getElementById('field');
+  const field =
+    document.getElementById('field');
 
-  const el=document.createElement('div');
+  const itemElement =
+    document.createElement('div');
 
-  el.className='fall';
+  itemElement.className = 'fall';
 
-  const isGood=Math.random()<.42;
+  const isGood =
+    Math.random() < 0.42;
 
-  const item=isGood
-    ?good[Math.floor(Math.random()*good.length)]
-    :bad[Math.floor(Math.random()*bad.length)];
+  let item;
 
-  el.textContent=isGood
-    ?item[0]
-    :item;
+  if (isGood) {
 
-  el.dataset.good=isGood?'1':'0';
+    item =
+      goodItems[
+        Math.floor(
+          Math.random() * goodItems.length
+        )
+      ];
 
-  el.style.left=
-    (5+Math.random()*90)+'%';
+    itemElement.textContent =
+      item[0];
 
-  field.appendChild(el);
+  } else {
 
-  let top=-55;
+    item =
+      badItems[
+        Math.floor(
+          Math.random() * badItems.length
+        )
+      ];
 
-  const timer=setInterval(()=>{
+    itemElement.textContent =
+      item;
+  }
 
-    top+=5;
+  itemElement.style.left =
+    (5 + Math.random() * 90) + '%';
 
-    el.style.top=top+'px';
+  field.appendChild(itemElement);
 
-    const pr=
-      document.getElementById('player')
-      .getBoundingClientRect();
+  let top = -55;
 
-    const er=
-      el.getBoundingClientRect();
 
-    if(
-      er.bottom>pr.top+8 &&
-      er.top<pr.bottom &&
-      er.left<pr.right &&
-      er.right>pr.left
-    ){
+  const fallingTimer =
+    setInterval(function() {
 
-      clearInterval(timer);
+      top += 5;
 
-      el.remove();
+      itemElement.style.top =
+        top + 'px';
 
-      if(isGood){
 
-        catchGood(item);
+      const player =
+        document
+          .getElementById('player')
+          .getBoundingClientRect();
 
-      }else{
+      const itemRect =
+        itemElement.getBoundingClientRect();
 
-        hitBad();
+
+      if (
+        itemRect.bottom > player.top + 8 &&
+        itemRect.top < player.bottom &&
+        itemRect.left < player.right &&
+        itemRect.right > player.left
+      ) {
+
+        clearInterval(fallingTimer);
+
+        itemElement.remove();
+
+
+        if (isGood) {
+
+          catchGoodItem(item);
+
+        } else {
+
+          hitBadItem();
+
+        }
 
       }
 
-    }else if(top>430){
 
-      clearInterval(timer);
+      else if (top > 430) {
 
-      el.remove();
+        clearInterval(fallingTimer);
 
-    }
+        itemElement.remove();
 
-  },35);
+      }
 
+    }, 35);
 }
 
 
-function catchGood(item){
+function catchGoodItem(item) {
 
   score++;
 
-  document.getElementById('gameScore').textContent=
+  document.getElementById('gameScore').textContent =
     score;
 
-  document.getElementById('gamebar').style.width=
-    (score*10)+'%';
+  document.getElementById('gamebar').style.width =
+    (score * 10) + '%';
 
-  document.getElementById('gameMsg').textContent=
-    item[0]+' «'+item[1]+'»';
+  document.getElementById('gameMsg').textContent =
+    item[0] + ' «' + item[1] + '»';
 
-  if(score>=10){
+
+  if (score >= 10) {
 
     clearInterval(spawnTimer);
 
-    setTimeout(()=>{
-      show('finish');
-    },500);
+    setTimeout(function() {
 
+      showScreen('finish');
+
+    }, 500);
+  }
+}
+
+
+function hitBadItem() {
+
+  const field =
+    document.getElementById('field');
+
+  field.classList.remove('shake');
+
+  void field.offsetWidth;
+
+  field.classList.add('shake');
+
+  document.getElementById('gameMsg').textContent =
+    '💩 Ой! Это была ловушка Леночки!';
+}
+
+
+/* =========================
+   ПОВТОРНО ПРОЙТИ ИГРУ
+========================= */
+
+function restartGame() {
+
+  clearInterval(spawnTimer);
+
+  window.location.reload();
+}
+
+
+/* =========================
+   ОТПРАВИТЬ ЛЕНОЧКЕ
+========================= */
+
+function shareGame() {
+
+  const text =
+    '🎮 Я прошёл игру «Ключ, пора прощать Леночку» и дошёл до финала! ❤️';
+
+
+  if (
+    navigator.share &&
+    !tg
+  ) {
+
+    navigator.share({
+      text: text
+    }).catch(function() {});
+
+    return;
   }
 
-}
+
+  if (
+    tg &&
+    tg.showPopup
+  ) {
+
+    tg.showPopup({
+      title: 'Игра пройдена! ❤️',
+      message: text,
+      buttons: [
+        {
+          type: 'ok'
+        }
+      ]
+    });
+
+    return;
+  }
 
 
-function hitBad(){
-
-  const f=document.getElementById('field');
-
-  f.classList.remove('shake');
-
-  void f.offsetWidth;
-
-  f.classList.add('shake');
-
-  document.getElementById('gameMsg').textContent=
-    '💩 Ой! Это была ловушка Леночки!';
-
-}
-
-
-/* КНОПКА ОТПРАВКИ */
-
-function share(){
-
-  alert(
-    '🎮 Я прошёл игру «Ключ, пора прощать Леночку» и дошёл до финала! ❤️'
-  );
-
+  alert(text);
 }
 
 </script>
 
 </body>
 </html>
-```
