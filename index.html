@@ -276,23 +276,19 @@ function catchGood(item){
  if(score>=10){clearInterval(spawnTimer);setTimeout(()=>show('finish'),500)}
 }
 function hitBad(){
- const f=document.getElementById('field');f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');
- document.getElementById('gameMsg').textContent='💩 Ой! Это была ловушка Леночки!';
+  const f=document.getElementById('field');
+  f.classList.remove('shake');
+  void f.offsetWidth;
+  f.classList.add('shake');
+  document.getElementById('gameMsg').textContent='💩 Ой! Это была ловушка Леночки!';
 }
+
 function share(){
   const text='🎮 Я прошёл игру «Ключ, пора прощать Леночку» и дошёл до финала! ❤️';
 
-  if(tg?.openTelegramLink){
-    tg.openTelegramLink(
-      'https://t.me/share/url?text='+encodeURIComponent(text)
-    );
-  } 
-  else if(navigator.share){
-    navigator.share({
-      text:text
-    });
-  } 
-  else {
+  if(tg && tg.openTelegramLink){
+    tg.openTelegramLink('https://t.me/share/url?text='+encodeURIComponent(text));
+  } else {
     alert(text);
   }
 }
