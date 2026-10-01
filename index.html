@@ -284,8 +284,7 @@ function share(){
 
   if(tg?.openTelegramLink){
     tg.openTelegramLink(
-      'https://t.me/share/url?text='+
-      encodeURIComponent(text)
+      'https://t.me/share/url?text='+encodeURIComponent(text)
     );
   } 
   else if(navigator.share){
@@ -297,3 +296,4 @@ function share(){
     alert(text);
   }
 }
+</script>
