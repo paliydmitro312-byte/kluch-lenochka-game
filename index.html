@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ключ, пора прощать Леночку</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(145deg,#160b2d,#30104b 55%,#0c1025);color:#fff;min-height:100vh}
+    .app{max-width:520px;margin:auto;padding:18px 14px 28px}
+    .screen{display:none}.screen.active{display:block}
+    .card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);border-radius:24px;padding:20px;box-shadow:0 10px 35px rgba(0,0,0,.25)}
+    h1{font-size:30px;line-height:1.08;margin:8px 0 14px}
+    h2{font-size:25px;margin:6px 0 12px}
+    h3{font-size:21px;margin:8px 0}
+    p{font-size:17px;line-height:1.45;margin:10px 0}
+    .emoji{font-size:58px;text-align:center;margin:8px 0}
+    .round{font-weight:800;letter-spacing:.5px;color:#ffd54a}
+    .btn{width:100%;border:0;border-radius:16px;padding:15px 12px;margin-top:10px;font-size:16px;font-weight:800;background:#fff;color:#241238;cursor:pointer}
+    .btn:active{transform:scale(.98)}
+    .answer{background:rgba(255,255,255,.12);color:#fff;text-align:left;border:1px solid rgba(255,255,255,.14)}
+    .good{background:#35c878!important;color:#071b11!important}
+    .bad{background:#e85b65!important;color:#fff!important}
+    .progress{height:10px;background:rgba(255,255,255,.12);border-radius:20px;overflow:hidden;margin:14px 0}
+    .bar{height:100%;width:0;background:#ff4fd8;transition:.25s}
+    .score{text-align:center;font-size:19px;font-weight:800;margin:8px 0}
+    .feedback{min-height:48px;text-align:center;font-weight:700;padding:8px}
+    .game{position:relative;height:410px;background:linear-gradient(#10172d,#182d47);border-radius:22px;overflow:hidden;border:2px solid rgba(255,255,255,.15)}
+    .player{position:absolute;bottom:16px;left:50%;font-size:48px;transform:translateX(-50%);transition:left .08s}
+    .fall{position:absolute;top:-55px;font-size:38px;transition:none}
+    .controls{display:flex;gap:10px;margin-top:10px}
+    .controls .btn{margin:0;font-size:25px}
+    .tiny{font-size:13px;opacity:.75}
+    .center{text-align:center}
+    .final{font-size:22px;line-height:1.4}
+    .shake{animation:shake .3s}
+    @keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-4px)}}
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <section id="start" class="screen active">
+    <div class="card center">
+      <div class="emoji">🎮</div>
+      <div class="round">СПЕЦИАЛЬНОЕ ИСПЫТАНИЕ</div>
+      <h1>КЛЮЧ, ПОРА ПРОЩАТЬ ЛЕНОЧКУ</h1>
+      <p>Три раунда. Несколько ловушек. И один главный вопрос:</p>
+      <h2>❤️ ПРОСТИШЬ ЛИ ТЫ ЛЕНОЧКУ?</h2>
+      <p>Пройдёшь все испытания — узнаешь.</p>
+      <button class="btn" onclick="show('r1intro')">🔥 НАЧАТЬ ИГРУ</button>
+    </div>
+  </section>
+
+  <section id="r1intro" class="screen">
+    <div class="card">
+      <div class="emoji">🧠</div><div class="round">РАУНД 1</div>
+      <h2>«МЕМНЫЕ КОМБИНАЦИИ»</h2>
+      <p>Ключ, Леночка подготовила для тебя несколько жизненно важных ситуаций.</p>
+      <p>Твоя задача — выбрать, как нормальный человек должен реагировать на Леночку.</p>
+      <p>Внимательно выбирай ответы. От этого зависит, получит ли Леночка прощение. 😈</p>
+      <button class="btn" onclick="startR1()">👉 НАЧАТЬ РАУНД</button>
+    </div>
+  </section>
+
+  <section id="r1" class="screen">
+    <div class="card">
+      <div class="round">🟣 РАУНД 1</div>
+      <div class="progress"><div id="r1bar" class="bar"></div></div>
+      <h3 id="r1q"></h3>
+      <div id="r1answers"></div>
+      <div id="r1feedback" class="feedback"></div>
+      <button id="r1next" class="btn" style="display:none" onclick="nextR1()">➡️ ДАЛЬШЕ</button>
+    </div>
+  </section>
+
+  <section id="r1end" class="screen">
+    <div class="card center">
+      <div class="emoji">🏁</div><h2>РАУНД 1 ПРОЙДЕН!</h2>
+      <p>Ключ пока не послал Леночку куда подальше.</p>
+      <p>Это уже огромный прогресс. 😂</p>
+      <p>Но теперь начнётся самое интересное…</p>
+      <button class="btn" onclick="show('r2intro')">👉 РАУНД 2</button>
+    </div>
+  </section>
+
+  <section id="r2intro" class="screen">
+    <div class="card">
+      <div class="emoji">🧩</div><div class="round">РАУНД 2</div>
+      <h2>«РАЗГАДАЙ ЛЕНОЧКУ»</h2>
+      <p>Теперь Леночка будет разговаривать исключительно эмодзи.</p>
+      <p>Твоя задача — понять, что она хотела сказать.</p>
+      <p>Угадаешь — получишь очко. Не угадаешь — Леночка будет очень разочарована. 🥲</p>
+      <button class="btn" onclick="startR2()">🧩 НАЧАТЬ</button>
+    </div>
+  </section>
+
+  <section id="r2" class="screen">
+    <div class="card">
+      <div class="round">🔵 РАУНД 2</div>
+      <div class="progress"><div id="r2bar" class="bar"></div></div>
+      <div class="emoji" id="r2emoji"></div>
+      <h3 id="r2q"></h3>
+      <div id="r2answers"></div>
+      <div id="r2feedback" class="feedback"></div>
+      <button id="r2next" class="btn" style="display:none" onclick="nextR2()">➡️ ДАЛЬШЕ</button>
+    </div>
+  </section>
+
+  <section id="r2end" class="screen">
+    <div class="card center">
+      <div class="emoji">🧠</div><h2>РАУНД 2 ПРОЙДЕН!</h2>
+      <p>Ты уже научился понимать язык Леночки.</p>
+      <p>Осталось последнее испытание.</p>
+      <p>И вот здесь тебе придётся <b>побегать.</b> 😈</p>
+      <button class="btn" onclick="startR3()">🔥 РАУНД 3</button>
+    </div>
+  </section>
+
+  <section id="r3intro" class="screen">
+    <div class="card">
+      <div class="emoji">💚</div><div class="round">РАУНД 3 — ФИНАЛ</div>
+      <h2>«ПОЙМАЙ КОМПЛИМЕНТЫ»</h2>
+      <p>Леночка решила доказать Ключу, что она умеет говорить не только гадости.</p>
+      <p>😈 Плохих эмодзи будет намного больше, чем хороших.</p>
+      <p>👦🏻 Управляй персонажем и лови только хорошие эмодзи.</p>
+      <p><b>💖 ЦЕЛЬ: поймать 10 комплиментов.</b></p>
+      <p>💩 Плохие эмодзи лучше не трогать.</p>
+      <button class="btn" onclick="startGame()">🎮 ИГРАТЬ</button>
+    </div>
+  </section>
+
+  <section id="game" class="screen">
+    <div class="card">
+      <div class="score">💖 КОМПЛИМЕНТЫ: <span id="gameScore">0</span> / 10</div>
+      <div class="progress"><div id="gamebar" class="bar"></div></div>
+      <div id="field" class="game">
+        <div id="player" class="player">👦🏻</div>
+      </div>
+      <div class="controls">
+        <button class="btn" onclick="move(-1)">⬅️</button>
+        <button class="btn" onclick="move(1)">➡️</button>
+      </div>
+      <div id="gameMsg" class="feedback">Лови хорошие эмодзи! 💖</div>
+    </div>
+  </section>
+
+  <section id="finish" class="screen">
+    <div class="card center">
+      <div class="emoji">🎉</div>
+      <h2>10 / 10!</h2>
+      <p class="final"><b>ТЫ ПОЙМАЛ ВСЕ КОМПЛИМЕНТЫ!</b></p>
+      <p>Леночка наконец сказала всё, что хотела сказать.</p>
+      <p>❤️ Возможно, теперь ты готов её простить.</p>
+      <button class="btn" onclick="show('forgive')">❤️ ПРОСТИТЬ ЛЕНОЧКУ</button>
+    </div>
+  </section>
+
+  <section id="forgive" class="screen">
+    <div class="card center">
+      <div class="emoji">🕊️</div>
+      <h2>МИР ЗАКЛЮЧЁН!</h2>
+      <p>Ключ и Леночка официально больше не воюют.</p>
+      <p>🍜 Бульдак — за примирение.</p>
+      <p>🥃 Японское пойло — за крепкую дружбу.</p>
+      <h2>❤️ Леночка прощена.</h2>
+      <p>🏆 <b>ИГРА ПРОЙДЕНА!</b></p>
+      <button class="btn" onclick="share()">📤 ОТПРАВИТЬ ЛЕНОЧКЕ</button>
+      <button class="btn" onclick="location.reload()">🔄 ПРОЙТИ ЕЩЁ РАЗ</button>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const tg = window.Telegram?.WebApp;
+if(tg){ tg.ready(); tg.expand(); }
+
+const r1 = [
+ {q:"😂 Леночка опять что-то написала. Что делает Ключ?", a:["🤬 «Завали ебучку»","🚫 Добавляет Леночку в ЧС","😐 Пишет «ок» и исчезает","❤️ Даёт ей шанс объясниться"], c:3, f:"☑️ Вот это мудро. Леночка пока остаётся на свободе."},
+ {q:"😂 Леночка говорит: «Я всё объясню». Что отвечает Ключ?", a:["💀 «Мне уже всё равно»","🗑️ «Иди объясняй это мусорному ведру»","👂 «Ладно, говори»","🤡 «АХАХАХА»"], c:2, f:"☑️ Правильно. Иногда человека всё-таки стоит выслушать."},
+ {q:"😂 Леночка решила извиниться. Что делает Ключ?", a:["🧱 Делает вид, что не услышал","😎 «Извинения приняты»","💩 Отправляет какашку","🔥 Начинает новый конфликт"], c:1, f:"☑️ Вот это уже дипломатия."}
+];
+
+const r2 = [
+ {e:"🤐 + 🍑",q:"Что означает это послание?",a:["🤬 «Завали ебучку»","❤️ «Леночка просит прощения у Ключа»","🚫 «Я передумала мириться»","👑 «Ключ официально победил»"],c:1},
+ {e:"👄 + 🍑",q:"Что Леночка хочет сказать?",a:["🤬 «Соси жопу»","❤️ «Леночка признаёт, что была неправа»","🤝 «Предлагаю перемирие»","😈 «Ключ, ты меня раскусил»"],c:1},
+ {e:"👩🏻 + 🚿❌ + 🗑️",q:"Что означает эта загадочная комбинация?",a:["🤡 «Ты похожа на бомжа»","❤️ «Леночка искренне извиняется»","🏃 «Леночка снова попала в неловкую ситуацию»","💀 «Ключ, забудь всё, что было»"],c:1}
+];
+
+let i=0;
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
+function startR1(){i=0;show('r1');renderR1()}
+function renderR1(){
+ const x=r1[i]; document.getElementById('r1q').textContent=x.q;
+ document.getElementById('r1bar').style.width=((i/r1.length)*100)+'%';
+ const box=document.getElementById('r1answers');box.innerHTML='';
+ x.a.forEach((v,n)=>{let b=document.createElement('button');b.className='btn answer';b.textContent=v;b.onclick=()=>answerR1(n);box.appendChild(b)});
+ document.getElementById('r1feedback').textContent='';
+ document.getElementById('r1next').style.display='none';
+}
+function answerR1(n){
+ const x=r1[i], box=document.getElementById('r1answers');
+ [...box.children].forEach((b,k)=>{b.disabled=true;if(k===x.c)b.classList.add('good');if(k===n&&n!==x.c)b.classList.add('bad')});
+ const fb=document.getElementById('r1feedback');
+ if(n===x.c){fb.textContent=x.f;document.getElementById('r1next').style.display='block'}
+ else fb.textContent='❌ Не-а. Попробуй ещё раз — Леночка всё ещё надеется на прощение. 😈';
+}
+function nextR1(){i++; if(i>=r1.length)show('r1end');else renderR1()}
+
+function startR2(){i=0;show('r2');renderR2()}
+function renderR2(){
+ const x=r2[i];document.getElementById('r2emoji').textContent=x.e;document.getElementById('r2q').textContent=x.q;
+ document.getElementById('r2bar').style.width=((i/r2.length)*100)+'%';
+ const box=document.getElementById('r2answers');box.innerHTML='';
+ x.a.forEach((v,n)=>{let b=document.createElement('button');b.className='btn answer';b.textContent=v;b.onclick=()=>answerR2(n);box.appendChild(b)});
+ document.getElementById('r2feedback').textContent='';document.getElementById('r2next').style.display='none';
+}
+function answerR2(n){
+ const x=r2[i],box=document.getElementById('r2answers');
+ [...box.children].forEach((b,k)=>{b.disabled=true;if(k===x.c)b.classList.add('good');if(k===n&&n!==x.c)b.classList.add('bad')});
+ if(n===x.c){document.getElementById('r2feedback').textContent='❤️ ТОЧНО! Ты начинаешь понимать язык Леночки.';document.getElementById('r2next').style.display='block'}
+ else document.getElementById('r2feedback').textContent='❌ Леночка смотрит на тебя с разочарованием. Попробуй ещё раз.';
+}
+function nextR2(){i++;if(i>=r2.length)show('r2end');else renderR2()}
+
+const good=[
+ ["❤️","Твои шутки смешные"],["🔥","Большой MMR"],["🍕","Пицца с 🍊 — вкусно"],
+ ["💅","Голубой маник — топ"],["😎","Упрямство — плюс"],["🐐","Козерог не козёл"],
+ ["💻","Крутой IT-ишник"],["😏","Грубость — изюминка"],["🌈","Геи сила"],["🧔🏻","Красивая борода"]
+];
+const bad=["💩","🤡","💀","🤬","👹","🤮","🗑️","☠️","😈","🥴","🤢","🪳"];
+let score=0,px=50,gameTimer=null,spawnTimer=null;
+
+function startR3(){show('r3intro')}
+function startGame(){
+ show('game');score=0;px=50;document.getElementById('gameScore').textContent=score;document.getElementById('gamebar').style.width='0%';
+ document.getElementById('gameMsg').textContent='Лови хорошие эмодзи! 💖';
+ document.getElementById('player').style.left=px+'%';
+ clearInterval(gameTimer);clearInterval(spawnTimer);
+ spawnTimer=setInterval(spawn,650);
+}
+function move(dir){px=Math.max(7,Math.min(93,px+dir*9));document.getElementById('player').style.left=px+'%'}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
+function spawn(){
+ const field=document.getElementById('field');const el=document.createElement('div');el.className='fall';
+ const isGood=Math.random()<.42;
+ const item=isGood?good[Math.floor(Math.random()*good.length)]:[bad[Math.floor(Math.random()*bad.length)],''][0];
+ el.textContent=isGood?item[0]:item;el.dataset.good=isGood?'1':'0';el.style.left=(5+Math.random()*90)+'%';field.appendChild(el);
+ let top=-55; const left=parseFloat(el.style.left);
+ const timer=setInterval(()=>{
+  top+=5;el.style.top=top+'px';
+  const pr=document.getElementById('player').getBoundingClientRect(), er=el.getBoundingClientRect();
+  if(er.bottom>pr.top+8 && er.top<pr.bottom && er.left<pr.right && er.right>pr.left){
+    clearInterval(timer);el.remove();
+    if(isGood) catchGood(item); else hitBad();
+  } else if(top>430){clearInterval(timer);el.remove();}
+ },35);
+}
+function catchGood(item){
+ score++;document.getElementById('gameScore').textContent=score;document.getElementById('gamebar').style.width=(score*10)+'%';
+ document.getElementById('gameMsg').textContent=item[0]+' «'+item[1]+'»';
+ if(score>=10){clearInterval(spawnTimer);setTimeout(()=>show('finish'),500)}
+}
+function hitBad(){
+ const f=document.getElementById('field');f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');
+ document.getElementById('gameMsg').textContent='💩 Ой! Это была ловушка Леночки!';
+}
+function share(){
+ const text='🎮 Я прошёл игру «Ключ, пора прощать Леночку» и дошёл до финала! ❤️';
+ if(tg?.openTelegramLink) tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(location.href)+'&text='+encodeURIComponent(text));
+ else if(navigator.share) navigator.share({text,url:location.href});
+ else alert('Скопируй ссылку на игру и отправь Леночке ❤️');
+}
+</script>
+</body>
+</html>
