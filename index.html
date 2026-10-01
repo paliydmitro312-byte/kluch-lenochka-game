@@ -55,7 +55,8 @@
 
   <section id="r1intro" class="screen">
     <div class="card">
-      <div class="emoji">🧠</div><div class="round">РАУНД 1</div>
+      <div class="emoji">🧠</div>
+      <div class="round">РАУНД 1</div>
       <h2>«МЕМНЫЕ КОМБИНАЦИИ»</h2>
       <p>Ключ, Леночка подготовила для тебя несколько жизненно важных ситуаций.</p>
       <p>Твоя задача — выбрать, как нормальный человек должен реагировать на Леночку.</p>
@@ -77,7 +78,8 @@
 
   <section id="r1end" class="screen">
     <div class="card center">
-      <div class="emoji">🏁</div><h2>РАУНД 1 ПРОЙДЕН!</h2>
+      <div class="emoji">🏁</div>
+      <h2>РАУНД 1 ПРОЙДЕН!</h2>
       <p>Ключ пока не послал Леночку куда подальше.</p>
       <p>Это уже огромный прогресс. 😂</p>
       <p>Но теперь начнётся самое интересное…</p>
@@ -87,7 +89,8 @@
 
   <section id="r2intro" class="screen">
     <div class="card">
-      <div class="emoji">🧩</div><div class="round">РАУНД 2</div>
+      <div class="emoji">🧩</div>
+      <div class="round">РАУНД 2</div>
       <h2>«РАЗГАДАЙ ЛЕНОЧКУ»</h2>
       <p>Теперь Леночка будет разговаривать исключительно эмодзи.</p>
       <p>Твоя задача — понять, что она хотела сказать.</p>
@@ -110,7 +113,8 @@
 
   <section id="r2end" class="screen">
     <div class="card center">
-      <div class="emoji">🧠</div><h2>РАУНД 2 ПРОЙДЕН!</h2>
+      <div class="emoji">🧠</div>
+      <h2>РАУНД 2 ПРОЙДЕН!</h2>
       <p>Ты уже научился понимать язык Леночки.</p>
       <p>Осталось последнее испытание.</p>
       <p>И вот здесь тебе придётся <b>побегать.</b> 😈</p>
@@ -120,7 +124,8 @@
 
   <section id="r3intro" class="screen">
     <div class="card">
-      <div class="emoji">💚</div><div class="round">РАУНД 3 — ФИНАЛ</div>
+      <div class="emoji">💚</div>
+      <div class="round">РАУНД 3 — ФИНАЛ</div>
       <h2>«ПОЙМАЙ КОМПЛИМЕНТЫ»</h2>
       <p>Леночка решила доказать Ключу, что она умеет говорить не только гадости.</p>
       <p>😈 Плохих эмодзи будет намного больше, чем хороших.</p>
@@ -135,13 +140,16 @@
     <div class="card">
       <div class="score">💖 КОМПЛИМЕНТЫ: <span id="gameScore">0</span> / 10</div>
       <div class="progress"><div id="gamebar" class="bar"></div></div>
+
       <div id="field" class="game">
         <div id="player" class="player">👦🏻</div>
       </div>
+
       <div class="controls">
         <button class="btn" onclick="move(-1)">⬅️</button>
         <button class="btn" onclick="move(1)">➡️</button>
       </div>
+
       <div id="gameMsg" class="feedback">Лови хорошие эмодзи! 💖</div>
     </div>
   </section>
@@ -166,6 +174,7 @@
       <p>🥃 Японское пойло — за крепкую дружбу.</p>
       <h2>❤️ Леночка прощена.</h2>
       <p>🏆 <b>ИГРА ПРОЙДЕНА!</b></p>
+
       <button class="btn" onclick="share()">📤 ОТПРАВИТЬ ЛЕНОЧКЕ</button>
       <button class="btn" onclick="location.reload()">🔄 ПРОЙТИ ЕЩЁ РАЗ</button>
     </div>
@@ -175,121 +184,346 @@
 
 <script>
 const tg = window.Telegram?.WebApp;
-if(tg){ tg.ready(); tg.expand(); }
+
+if(tg){
+  tg.ready();
+  tg.expand();
+}
 
 const r1 = [
- {q:"😂 Леночка опять что-то написала. Что делает Ключ?", a:["🤬 «Завали ебучку»","🚫 Добавляет Леночку в ЧС","😐 Пишет «ок» и исчезает","❤️ Даёт ей шанс объясниться"], c:3, f:"☑️ Вот это мудро. Леночка пока остаётся на свободе."},
- {q:"😂 Леночка говорит: «Я всё объясню». Что отвечает Ключ?", a:["💀 «Мне уже всё равно»","🗑️ «Иди объясняй это мусорному ведру»","👂 «Ладно, говори»","🤡 «АХАХАХА»"], c:2, f:"☑️ Правильно. Иногда человека всё-таки стоит выслушать."},
- {q:"😂 Леночка решила извиниться. Что делает Ключ?", a:["🧱 Делает вид, что не услышал","😎 «Извинения приняты»","💩 Отправляет какашку","🔥 Начинает новый конфликт"], c:1, f:"☑️ Вот это уже дипломатия."}
+  {
+    q:"😂 Леночка опять что-то написала. Что делает Ключ?",
+    a:[
+      "🤬 «Завали ебучку»",
+      "🚫 Добавляет Леночку в ЧС",
+      "😐 Пишет «ок» и исчезает",
+      "❤️ Даёт ей шанс объясниться"
+    ],
+    c:3,
+    f:"☑️ Вот это мудро. Леночка пока остаётся на свободе."
+  },
+  {
+    q:"😂 Леночка говорит: «Я всё объясню». Что отвечает Ключ?",
+    a:[
+      "💀 «Мне уже всё равно»",
+      "🗑️ «Иди объясняй это мусорному ведру»",
+      "👂 «Ладно, говори»",
+      "🤡 «АХАХАХА»"
+    ],
+    c:2,
+    f:"☑️ Правильно. Иногда человека всё-таки стоит выслушать."
+  },
+  {
+    q:"😂 Леночка решила извиниться. Что делает Ключ?",
+    a:[
+      "🧱 Делает вид, что не услышал",
+      "😎 «Извинения приняты»",
+      "💩 Отправляет какашку",
+      "🔥 Начинает новый конфликт"
+    ],
+    c:1,
+    f:"☑️ Вот это уже дипломатия."
+  }
 ];
 
 const r2 = [
- {e:"🤐 + 🍑",q:"Что означает это послание?",a:["🤬 «Завали ебучку»","❤️ «Леночка просит прощения у Ключа»","🚫 «Я передумала мириться»","👑 «Ключ официально победил»"],c:1},
- {e:"👄 + 🍑",q:"Что Леночка хочет сказать?",a:["🤬 «Соси жопу»","❤️ «Леночка признаёт, что была неправа»","🤝 «Предлагаю перемирие»","😈 «Ключ, ты меня раскусил»"],c:1},
- {e:"👩🏻 + 🚿❌ + 🗑️",q:"Что означает эта загадочная комбинация?",a:["🤡 «Ты похожа на бомжа»","❤️ «Леночка искренне извиняется»","🏃 «Леночка снова попала в неловкую ситуацию»","💀 «Ключ, забудь всё, что было»"],c:1}
+  {
+    e:"🤐 + 🍑",
+    q:"Что означает это послание?",
+    a:[
+      "🤬 «Завали ебучку»",
+      "❤️ «Леночка просит прощения у Ключа»",
+      "🚫 «Я передумала мириться»",
+      "👑 «Ключ официально победил»"
+    ],
+    c:1
+  },
+  {
+    e:"👄 + 🍑",
+    q:"Что Леночка хочет сказать?",
+    a:[
+      "🤬 «Соси жопу»",
+      "❤️ «Леночка признаёт, что была неправа»",
+      "🤝 «Предлагаю перемирие»",
+      "😈 «Ключ, ты меня раскусил»"
+    ],
+    c:1
+  },
+  {
+    e:"👩🏻 + 🚿❌ + 🗑️",
+    q:"Что означает эта загадочная комбинация?",
+    a:[
+      "🤡 «Ты похожа на бомжа»",
+      "❤️ «Леночка искренне извиняется»",
+      "🏃 «Леночка снова попала в неловкую ситуацию»",
+      "💀 «Ключ, забудь всё, что было»"
+    ],
+    c:1
+  }
 ];
 
 let i=0;
-function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0)}
-function startR1(){i=0;show('r1');renderR1()}
-function renderR1(){
- const x=r1[i]; document.getElementById('r1q').textContent=x.q;
- document.getElementById('r1bar').style.width=((i/r1.length)*100)+'%';
- const box=document.getElementById('r1answers');box.innerHTML='';
- x.a.forEach((v,n)=>{let b=document.createElement('button');b.className='btn answer';b.textContent=v;b.onclick=()=>answerR1(n);box.appendChild(b)});
- document.getElementById('r1feedback').textContent='';
- document.getElementById('r1next').style.display='none';
-}
-function answerR1(n){
- const x=r1[i], box=document.getElementById('r1answers');
- [...box.children].forEach((b,k)=>{
-  if(k===x.c && n===x.c) b.classList.add('good');
-  if(k===n && n!==x.c){
-    b.classList.add('bad');
-    b.disabled=true;
-  }
-});
- const fb=document.getElementById('r1feedback');
- if(n===x.c){fb.textContent=x.f;document.getElementById('r1next').style.display='block'}
- else fb.textContent='❌ Не-а. Попробуй ещё раз — Леночка всё ещё надеется на прощение. 😈';
-}
-function nextR1(){i++; if(i>=r1.length)show('r1end');else renderR1()}
 
-function startR2(){i=0;show('r2');renderR2()}
-function renderR2(){
- const x=r2[i];document.getElementById('r2emoji').textContent=x.e;document.getElementById('r2q').textContent=x.q;
- document.getElementById('r2bar').style.width=((i/r2.length)*100)+'%';
- const box=document.getElementById('r2answers');box.innerHTML='';
- x.a.forEach((v,n)=>{let b=document.createElement('button');b.className='btn answer';b.textContent=v;b.onclick=()=>answerR2(n);box.appendChild(b)});
- document.getElementById('r2feedback').textContent='';document.getElementById('r2next').style.display='none';
+function show(id){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
 }
-function answerR2(n){
- const x=r2[i],box=document.getElementById('r2answers');
- [...box.children].forEach((b,k)=>{
-  if(k===x.c && n===x.c) b.classList.add('good');
-  if(k===n && n!==x.c){
-    b.classList.add('bad');
-    b.disabled=true;
+
+function startR1(){
+  i=0;
+  show('r1');
+  renderR1();
+}
+
+function renderR1(){
+  const x=r1[i];
+
+  document.getElementById('r1q').textContent=x.q;
+  document.getElementById('r1bar').style.width=((i/r1.length)*100)+'%';
+
+  const box=document.getElementById('r1answers');
+  box.innerHTML='';
+
+  x.a.forEach((v,n)=>{
+    let b=document.createElement('button');
+    b.className='btn answer';
+    b.textContent=v;
+    b.onclick=()=>answerR1(n);
+    box.appendChild(b);
+  });
+
+  document.getElementById('r1feedback').textContent='';
+  document.getElementById('r1next').style.display='none';
+}
+
+function answerR1(n){
+  const x=r1[i];
+  const box=document.getElementById('r1answers');
+
+  [...box.children].forEach((b,k)=>{
+    if(k===x.c && n===x.c){
+      b.classList.add('good');
+    }
+
+    if(k===n && n!==x.c){
+      b.classList.add('bad');
+      b.disabled=true;
+    }
+  });
+
+  const fb=document.getElementById('r1feedback');
+
+  if(n===x.c){
+    fb.textContent=x.f;
+    document.getElementById('r1next').style.display='block';
+  } else {
+    fb.textContent='❌ Не-а. Попробуй ещё раз — Леночка всё ещё надеется на прощение. 😈';
   }
-});
- if(n===x.c){document.getElementById('r2feedback').textContent='❤️ ТОЧНО! Ты начинаешь понимать язык Леночки.';document.getElementById('r2next').style.display='block'}
- else document.getElementById('r2feedback').textContent='❌ Леночка смотрит на тебя с разочарованием. Попробуй ещё раз.';
 }
-function nextR2(){i++;if(i>=r2.length)show('r2end');else renderR2()}
+
+function nextR1(){
+  i++;
+
+  if(i>=r1.length){
+    show('r1end');
+  } else {
+    renderR1();
+  }
+}
+
+function startR2(){
+  i=0;
+  show('r2');
+  renderR2();
+}
+
+function renderR2(){
+  const x=r2[i];
+
+  document.getElementById('r2emoji').textContent=x.e;
+  document.getElementById('r2q').textContent=x.q;
+  document.getElementById('r2bar').style.width=((i/r2.length)*100)+'%';
+
+  const box=document.getElementById('r2answers');
+  box.innerHTML='';
+
+  x.a.forEach((v,n)=>{
+    let b=document.createElement('button');
+    b.className='btn answer';
+    b.textContent=v;
+    b.onclick=()=>answerR2(n);
+    box.appendChild(b);
+  });
+
+  document.getElementById('r2feedback').textContent='';
+  document.getElementById('r2next').style.display='none';
+}
+
+function answerR2(n){
+  const x=r2[i];
+  const box=document.getElementById('r2answers');
+
+  [...box.children].forEach((b,k)=>{
+    if(k===x.c && n===x.c){
+      b.classList.add('good');
+    }
+
+    if(k===n && n!==x.c){
+      b.classList.add('bad');
+      b.disabled=true;
+    }
+  });
+
+  if(n===x.c){
+    document.getElementById('r2feedback').textContent='❤️ ТОЧНО! Ты начинаешь понимать язык Леночки.';
+    document.getElementById('r2next').style.display='block';
+  } else {
+    document.getElementById('r2feedback').textContent='❌ Леночка смотрит на тебя с разочарованием. Попробуй ещё раз.';
+  }
+}
+
+function nextR2(){
+  i++;
+
+  if(i>=r2.length){
+    show('r2end');
+  } else {
+    renderR2();
+  }
+}
 
 const good=[
- ["❤️","Твои шутки смешные"],["🔥","Большой MMR"],["🍕","Пицца с 🍊 — вкусно"],
- ["💅","Голубой маник — топ"],["😎","Упрямство — плюс"],["🐐","Козерог не козёл"],
- ["💻","Крутой IT-ишник"],["😏","Грубость — изюминка"],["🌈","Геи сила"],["🧔🏻","Красивая борода"]
+  ["❤️","Твои шутки смешные"],
+  ["🔥","Большой MMR"],
+  ["🍕","Пицца с 🍊 — вкусно"],
+  ["💅","Голубой маник — топ"],
+  ["😎","Упрямство — плюс"],
+  ["🐐","Козерог не козёл"],
+  ["💻","Крутой IT-ишник"],
+  ["😏","Грубость — изюминка"],
+  ["🌈","Геи сила"],
+  ["🧔🏻","Красивая борода"]
 ];
-const bad=["💩","🤡","💀","🤬","👹","🤮","🗑️","☠️","😈","🥴","🤢","🪳"];
-let score=0,px=50,gameTimer=null,spawnTimer=null;
 
-function startR3(){show('r3intro')}
+const bad=[
+  "💩","🤡","💀","🤬","👹","🤮",
+  "🗑️","☠️","😈","🥴","🤢","🪳"
+];
+
+let score=0;
+let px=50;
+let gameTimer=null;
+let spawnTimer=null;
+
+function startR3(){
+  show('r3intro');
+}
+
 function startGame(){
- show('game');score=0;px=50;document.getElementById('gameScore').textContent=score;document.getElementById('gamebar').style.width='0%';
- document.getElementById('gameMsg').textContent='Лови хорошие эмодзи! 💖';
- document.getElementById('player').style.left=px+'%';
- clearInterval(gameTimer);clearInterval(spawnTimer);
- spawnTimer=setInterval(spawn,650);
+  show('game');
+
+  score=0;
+  px=50;
+
+  document.getElementById('gameScore').textContent=score;
+  document.getElementById('gamebar').style.width='0%';
+  document.getElementById('gameMsg').textContent='Лови хорошие эмодзи! 💖';
+  document.getElementById('player').style.left=px+'%';
+
+  clearInterval(gameTimer);
+  clearInterval(spawnTimer);
+
+  spawnTimer=setInterval(spawn,650);
 }
-function move(dir){px=Math.max(7,Math.min(93,px+dir*9));document.getElementById('player').style.left=px+'%'}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')move(-1);if(e.key==='ArrowRight')move(1)});
+
+function move(dir){
+  px=Math.max(7,Math.min(93,px+dir*9));
+  document.getElementById('player').style.left=px+'%';
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft')move(-1);
+  if(e.key==='ArrowRight')move(1);
+});
+
 function spawn(){
- const field=document.getElementById('field');const el=document.createElement('div');el.className='fall';
- const isGood=Math.random()<.42;
- const item=isGood?good[Math.floor(Math.random()*good.length)]:[bad[Math.floor(Math.random()*bad.length)],''][0];
- el.textContent=isGood?item[0]:item;el.dataset.good=isGood?'1':'0';el.style.left=(5+Math.random()*90)+'%';field.appendChild(el);
- let top=-55; const left=parseFloat(el.style.left);
- const timer=setInterval(()=>{
-  top+=5;el.style.top=top+'px';
-  const pr=document.getElementById('player').getBoundingClientRect(), er=el.getBoundingClientRect();
-  if(er.bottom>pr.top+8 && er.top<pr.bottom && er.left<pr.right && er.right>pr.left){
-    clearInterval(timer);el.remove();
-    if(isGood) catchGood(item); else hitBad();
-  } else if(top>430){clearInterval(timer);el.remove();}
- },35);
+  const field=document.getElementById('field');
+  const el=document.createElement('div');
+
+  el.className='fall';
+
+  const isGood=Math.random()<.42;
+
+  const item=isGood
+    ? good[Math.floor(Math.random()*good.length)]
+    : bad[Math.floor(Math.random()*bad.length)];
+
+  el.textContent=isGood?item[0]:item;
+  el.dataset.good=isGood?'1':'0';
+  el.style.left=(5+Math.random()*90)+'%';
+
+  field.appendChild(el);
+
+  let top=-55;
+
+  const timer=setInterval(()=>{
+    top+=5;
+    el.style.top=top+'px';
+
+    const pr=document.getElementById('player').getBoundingClientRect();
+    const er=el.getBoundingClientRect();
+
+    if(
+      er.bottom>pr.top+8 &&
+      er.top<pr.bottom &&
+      er.left<pr.right &&
+      er.right>pr.left
+    ){
+      clearInterval(timer);
+      el.remove();
+
+      if(isGood){
+        catchGood(item);
+      } else {
+        hitBad();
+      }
+
+    } else if(top>430){
+      clearInterval(timer);
+      el.remove();
+    }
+
+  },35);
 }
+
 function catchGood(item){
- score++;document.getElementById('gameScore').textContent=score;document.getElementById('gamebar').style.width=(score*10)+'%';
- document.getElementById('gameMsg').textContent=item[0]+' «'+item[1]+'»';
- if(score>=10){clearInterval(spawnTimer);setTimeout(()=>show('finish'),500)}
+  score++;
+
+  document.getElementById('gameScore').textContent=score;
+  document.getElementById('gamebar').style.width=(score*10)+'%';
+  document.getElementById('gameMsg').textContent=item[0]+' «'+item[1]+'»';
+
+  if(score>=10){
+    clearInterval(spawnTimer);
+    setTimeout(()=>show('finish'),500);
+  }
 }
+
 function hitBad(){
   const f=document.getElementById('field');
+
   f.classList.remove('shake');
   void f.offsetWidth;
   f.classList.add('shake');
+
   document.getElementById('gameMsg').textContent='💩 Ой! Это была ловушка Леночки!';
 }
 
 function share(){
-  const text='🎮 Я прошёл игру «Ключ, пора прощать Леночку» и дошёл до финала! ❤️';
-
-  if(tg && tg.openTelegramLink){
-    tg.openTelegramLink('https://t.me/share/url?text='+encodeURIComponent(text));
-  } else {
-    alert(text);
-  }
+  alert('🎮 Я прошёл игру «Ключ, пора прощать Леночку» и дошёл до финала! ❤️');
 }
 </script>
+
+</body>
+</html>
