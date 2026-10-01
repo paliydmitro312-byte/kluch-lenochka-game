@@ -281,24 +281,19 @@ function hitBad(){
 }
 function share(){
   const text='🎮 Я прошёл игру «Ключ, пора прощать Леночку» и дошёл до финала! ❤️';
-  const cleanUrl='https://paliydmitro312-byte.github.io/kluch-lenochka-game/';
 
   if(tg?.openTelegramLink){
     tg.openTelegramLink(
-      'https://t.me/share/url?url='+
-      encodeURIComponent(cleanUrl)+
-      '&text='+
+      'https://t.me/share/url?text='+
       encodeURIComponent(text)
     );
-  } else if(navigator.share){
+  } 
+  else if(navigator.share){
     navigator.share({
-      text:text,
-      url:cleanUrl
+      text:text
     });
-  } else {
-    alert(text+'\n\n'+cleanUrl);
+  } 
+  else {
+    alert(text);
   }
 }
-</script>
-</body>
-</html>
