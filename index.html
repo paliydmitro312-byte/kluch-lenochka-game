@@ -202,7 +202,13 @@ function renderR1(){
 }
 function answerR1(n){
  const x=r1[i], box=document.getElementById('r1answers');
- [...box.children].forEach((b,k)=>{b.disabled=true;if(k===x.c)b.classList.add('good');if(k===n&&n!==x.c)b.classList.add('bad')});
+ [...box.children].forEach((b,k)=>{
+  if(k===x.c && n===x.c) b.classList.add('good');
+  if(k===n && n!==x.c){
+    b.classList.add('bad');
+    b.disabled=true;
+  }
+});
  const fb=document.getElementById('r1feedback');
  if(n===x.c){fb.textContent=x.f;document.getElementById('r1next').style.display='block'}
  else fb.textContent='❌ Не-а. Попробуй ещё раз — Леночка всё ещё надеется на прощение. 😈';
